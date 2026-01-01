@@ -1,4 +1,4 @@
-import { getAllRooms, getRoomBySlug } from "@/db/query/rooms";
+import { getAllRooms, getRoomBySlug } from "@/db/query/home";
 
 import Image from "next/image";
 import Link from "next/link";

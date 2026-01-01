@@ -2,7 +2,7 @@ import Image from "next/image";
 import ProductMain from "@/components/Products/ProductMain";
 import ProductSidebar from "@/components/Products/ProductSidebar";
 import React from "react";
-import { getAllRooms } from "@/db/query/rooms";
+import { getAllProducts } from "@/db/query/home";
 import { unstable_cache } from "next/cache";
 
 const ProductsPage = async () => {
@@ -64,42 +64,41 @@ const ProductsPage = async () => {
     ];
 
     return (
-        <section className='py-8 md:py-12 lg:py-16'>
-            <div className='container mx-auto'>
-                <div
-                    className='
+        <section className='px-4 md:px-2 lg:px-0   mx-auto container py-16 my-12 md:my-16'>
+            <div
+                className='
                     grid
                     grid-cols-1
                     lg:grid-cols-[220px_1fr]
                     gap-x-6
                     gap-y-5
     '
-                >
-                    {/* Header */}
-                    <div className='lg:col-start-2 lg:row-start-1 mb-11'>
-                        <div className='text-sm text-gray-500 mb-3'>Shop</div>
-                        <h3 className='text-2xl'>All Products</h3>
-                    </div>
+            >
+                {/* Header */}
+                <div className='lg:col-start-2 lg:row-start-1 mb-6'>
+                    <div className='text-sm text-gray-500 mb-2'>Shop</div>
+                    <h3 className='text-2xl'>All Products</h3>
+                </div>
 
-                    {/* Sidebar */}
-                    <div
-                        className='
+                {/* Sidebar */}
+                <div
+                    className='
                         lg:col-start-1
                         lg:row-start-2
                         self-start
                         grid
                         gap-9
-                        sticky
-                        top-24
+                        relative lg:sticky
+                        top-0 lg:top-24
+                        mb-6 lg:mb-0
       '
-                    >
-                        <ProductSidebar />
-                    </div>
+                >
+                    <ProductSidebar />
+                </div>
 
-                    {/* Products */}
-                    <div className='lg:col-start-2 lg:row-start-2'>
-                        <ProductMain productList={productList} />
-                    </div>
+                {/* Products */}
+                <div className='lg:col-start-2 lg:row-start-2'>
+                    <ProductMain productList={productList} />
                 </div>
             </div>
         </section>

@@ -5,11 +5,11 @@ const SwiperImages = () => {
     const ImageList = "/images/h2.avif";
 
     return (
-        <div className='py-12'>
-            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 pt-16 h-[80vh]'>
-                <div className='relative h-full bg-secondary flex justify-center items-center'>
-                    <div className=' px-48 mb-12 mx-auto text-center text-white '>
-                        <h1 className='mx-auto mb-6  text-black text-[32px]   lg:text-[64px]'>
+        <div className='px-4 md:px-2 lg:px-0   mx-auto container py-16 my-12 md:my-16'>
+            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2  h-[80vh]'>
+                <div className='order-2 md:order-1 relative h-full bg-secondary flex justify-center items-center'>
+                    <div className=' w-[280px] md:w-[340px] lg:w-[440px]  py-16 text-center text-white '>
+                        <h1 className='mx-auto mb-6  text-black text-[40px]   lg:text-[64px]'>
                             Home Decor Collection
                         </h1>
                         <div className='mb-12 font-light text-amber-800  '>
@@ -17,21 +17,23 @@ const SwiperImages = () => {
                             unique handmade pieces to vintage gems
                         </div>
                         <Link
-                            href='/rooms'
-                            className='btn px-12 py-4 cursor-pointer bg-accent text-white '
+                            href='/products'
+                            className='btn px-8 py-4 cursor-pointer bg-accent text-white '
                         >
                             Shop Now
                         </Link>
                     </div>
                 </div>
-                <Image
-                    src={ImageList}
-                    alt='Logo'
-                    width={0}
-                    height={0}
-                    sizes='100vw'
-                    className='w-full h-[80vh] object-cover'
-                />
+                <div className='order-1 md:order-2 relative w-full aspect-square md:aspect-auto md:h-[80vh]'>
+                    <Image
+                        src={ImageList}
+                        alt='Logo'
+                        fill
+                        sizes='100vw'
+                        loading='lazy'
+                        className='inline-block w-full max-w-full align-middle object-cover'
+                    />
+                </div>
             </div>
         </div>
     );

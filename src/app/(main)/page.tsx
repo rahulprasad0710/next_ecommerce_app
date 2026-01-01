@@ -1,12 +1,16 @@
 // import Footer from "@/components/Footer";
-import RoomAvailability from "@/components/RoomAvailability";
-import Rooms from "@/components/Rooms";
+import HomeBlog from "@/components/HomeBlog";
+import HomeCategory from "@/components/HomeCategory";
+import HomeProducts from "@/components/HomeProducts";
 import SwiperImages from "@/components/SwiperImages";
 
 export default function Home() {
     return (
-        <div className=' container m-auto bg-white '>
+        <div className='relative'>
             <SwiperImages />
+            <HomeCategory />
+            <HomeProducts tag='NEW_ARRIVAL' />
+            <HomeBlog />
         </div>
     );
 }

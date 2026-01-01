@@ -126,11 +126,10 @@ export const categories = pgTable(
         id: bigserial({ mode: "bigint" }).primaryKey().notNull(),
         name: varchar({ length: 150 }).notNull(),
         slug: varchar({ length: 150 }).notNull(),
-        image: text(),
-        description: text(),
         // You can use { mode: "bigint" } if numbers are exceeding js number limitations
         parentId: bigint("parent_id", { mode: "number" }),
         isActive: boolean("is_active").default(true),
+        image: text(),
         createdAt: timestamp("created_at", {
             withTimezone: true,
             mode: "string",
@@ -149,7 +148,7 @@ export const categories = pgTable(
         unique("categories_slug_key").on(table.slug),
     ]
 );
-``;
+
 export const products = pgTable(
     "products",
     {
@@ -163,11 +162,9 @@ export const products = pgTable(
             precision: 10,
             scale: 2,
         }).notNull(),
-        image: text(),
-        short_description: text(),
-
         mrpPrice: numeric("mrp_price", { precision: 10, scale: 2 }).notNull(),
         stock: integer().default(0),
+        image: text(),
         isActive: boolean("is_active").default(true),
         tag: varchar({ length: 200 }).notNull(),
     },
