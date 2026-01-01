@@ -2,12 +2,18 @@ import ProductItem from "./ProductItem";
 import React from "react";
 
 type IProductItem = {
-    id: number;
-    title: string;
-    short_description: string;
-    image: string;
-    mrp: number;
-    selling_price: number;
+    id: string;
+    categoryId: string;
+    description: string;
+    name: string;
+    slug: string;
+    sellingPrice: string;
+    image: string | null;
+    short_description: string | null;
+    mrpPrice: string;
+    stock: number | null;
+    isActive: boolean | null;
+    tag: string;
 };
 
 const ProductMain = (props: { productList: IProductItem[] }) => {

@@ -1,67 +1,48 @@
-import Image from "next/image";
+import { getAllCategories, getAllProducts } from "@/db/query/home";
+
+import Link from "next/link";
+import ProductHeading from "@/components/Products/ProductHeading";
 import ProductMain from "@/components/Products/ProductMain";
 import ProductSidebar from "@/components/Products/ProductSidebar";
 import React from "react";
-import { getAllProducts } from "@/db/query/home";
 import { unstable_cache } from "next/cache";
 
-const ProductsPage = async () => {
-    const productList = [
-        {
-            id: 1,
-            title: "Wooden Wall Shelf",
-            short_description:
-                "Handmade ply shelf to decorate your living room or bedroom.",
-            image: "/images/products/pp1.jpeg",
-            mrp: 2999,
-            selling_price: 2699,
+interface IPageProps {
+    searchParams:
+        | {
+              category?: string;
+              page?: string;
+              search_query?: string;
+          }
+        | Promise<{ [key: string]: string | undefined }>;
+}
+
+const ProductsPage = async ({ searchParams }: IPageProps) => {
+    const params = await searchParams;
+    console.log("LOG: ~ ProductsPage ~ params:", params);
+    const currentPage = Number(params?.page ?? "1");
+    const searchQuery = params?.search_query ?? undefined;
+    const categoryId = params?.category ?? undefined;
+
+    const getCachedCategory = unstable_cache(
+        async () => {
+            const result = await getAllCategories();
+            return result;
         },
+        ["all-categories"],
         {
-            id: 2,
-            title: "Ceramic Flower Pot - Medium",
-            short_description:
-                "Elegant ceramic flower pot for indoor plants and décor.",
-            image: "/images/products/pp2.jpeg",
-            mrp: 1499,
-            selling_price: 1299,
-        },
-        {
-            id: 3,
-            title: "Stainless Steel Lunch Box",
-            short_description:
-                "Compact and durable lunch box, perfect for daily meals.",
-            image: "/images/products/pp3.jpeg",
-            mrp: 1099,
-            selling_price: 999,
-        },
-        {
-            id: 4,
-            title: "Ply Wooden Coasters - Set of 4",
-            short_description:
-                "Handcrafted coasters to protect your surfaces in style.",
-            image: "/images/products/pp4.jpeg",
-            mrp: 899,
-            selling_price: 799,
-        },
-        {
-            id: 5,
-            title: "Glass Water Bottle with Bamboo Lid",
-            short_description:
-                "Eco-friendly water bottle, ideal for home or office use.",
-            image: "/images/products/pp5.jpeg",
-            mrp: 1299,
-            selling_price: 1099,
-        },
-        {
-            id: 6,
-            title: "Kitchen Storage Container - 3pcs Set",
-            short_description:
-                "Durable airtight containers for keeping your pantry organized.",
-            image: "/images/products/pp6.jpeg",
-            mrp: 1499,
-            selling_price: 1299,
-        },
-    ];
+            tags: ["categories"],
+        }
+    );
+
+    const categoryList = await getCachedCategory();
+
+    const { products, pagination } = await getAllProducts(
+        undefined,
+        Number(categoryId) || undefined,
+        currentPage,
+        searchQuery
+    );
 
     return (
         <section className='px-4 md:px-2 lg:px-0   mx-auto container py-16 my-12 md:my-16'>
@@ -74,13 +55,11 @@ const ProductsPage = async () => {
                     gap-y-5
     '
             >
-                {/* Header */}
-                <div className='lg:col-start-2 lg:row-start-1 mb-6'>
-                    <div className='text-sm text-gray-500 mb-2'>Shop</div>
-                    <h3 className='text-2xl'>All Products</h3>
-                </div>
-
-                {/* Sidebar */}
+                <ProductHeading
+                    searchQuery={searchQuery}
+                    categoryId={categoryId}
+                    categoryList={categoryList}
+                />
                 <div
                     className='
                         lg:col-start-1
@@ -93,12 +72,64 @@ const ProductsPage = async () => {
                         mb-6 lg:mb-0
       '
                 >
-                    <ProductSidebar />
+                    <ProductSidebar
+                        categoryId={categoryId}
+                        categoryList={categoryList}
+                    />
                 </div>
 
                 {/* Products */}
                 <div className='lg:col-start-2 lg:row-start-2'>
-                    <ProductMain productList={productList} />
+                    <ProductMain productList={products} />
+                    <div>
+                        <div className='flex gap-2 mt-6 justify-end '>
+                            <Link
+                                href={
+                                    currentPage > 1
+                                        ? `/products?page=${currentPage - 1}`
+                                        : "#"
+                                }
+                                aria-disabled={currentPage <= 1}
+                                tabIndex={currentPage <= 1 ? -1 : 0}
+                                className={`px-3 py-1 border transition
+                                ${
+                                    currentPage <= 1
+                                        ? "border-gray-300 text-gray-400 pointer-events-none cursor-not-allowed"
+                                        : "border-accent text-accent hover:bg-accent hover:text-white"
+                                }
+  `}
+                            >
+                                Prev
+                            </Link>
+
+                            <Link
+                                href={
+                                    currentPage < pagination.totalPages
+                                        ? `/products?category=${categoryId}&page=${
+                                              currentPage + 1
+                                          }`
+                                        : "#"
+                                }
+                                aria-disabled={
+                                    currentPage >= pagination.totalPages
+                                }
+                                tabIndex={
+                                    currentPage >= pagination.totalPages
+                                        ? -1
+                                        : 0
+                                }
+                                className={`px-3 py-1 border transition
+                                    ${
+                                        currentPage >= pagination.totalPages
+                                            ? "border-gray-300 text-gray-400 pointer-events-none cursor-not-allowed"
+                                            : "border-accent text-accent hover:bg-accent hover:text-white"
+                                    }
+                                `}
+                            >
+                                Next
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

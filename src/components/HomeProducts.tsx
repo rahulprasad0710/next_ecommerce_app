@@ -4,6 +4,21 @@ import { getAllProducts } from "@/db/query/home";
 import { unstable_cache } from "next/cache";
 
 type IProps = {
+    tag?: string;
+};
+
+type IProductItem = {
+    id: string;
+    categoryId: string;
+    description: string;
+    name: string;
+    slug: string;
+    sellingPrice: string;
+    image: string | null;
+    short_description: string | null;
+    mrpPrice: string;
+    stock: number | null;
+    isActive: boolean | null;
     tag: string;
 };
 
@@ -11,7 +26,7 @@ const HomeProducts = async (props: IProps) => {
     const { tag } = props;
     const getCachedData = unstable_cache(
         async () => {
-            const result = await getAllProducts(tag);
+            const result = await getAllProducts(tag, undefined, 1);
             console.log("LOG: ~ HomeProduct ~ result:", result);
             return result;
         },
@@ -21,7 +36,12 @@ const HomeProducts = async (props: IProps) => {
         }
     );
 
-    const productList = await getCachedData();
+    const { products, pagination } = await getCachedData();
+
+    console.log({
+        products,
+        pagination,
+    });
 
     return (
         <div className=' px-4 md:px-2 lg:px-0   mx-auto container py-16 '>
@@ -30,11 +50,11 @@ const HomeProducts = async (props: IProps) => {
                 <h1 className='heading text-2xl'>New Arrivals</h1>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 '>
-                {productList.map((product) => (
+                {products?.map((product: IProductItem) => (
                     <Link
                         key={product.id}
                         className='cursor-pointer'
-                        href={`/product/${product.id}`}
+                        href={`/products/${product.slug}`}
                     >
                         <div className='relative  w-full '>
                             <Image

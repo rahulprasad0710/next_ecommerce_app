@@ -38,8 +38,8 @@ const Header = () => {
                                         <Image
                                             src={data?.user?.image}
                                             alt='Logo'
-                                            width={32}
-                                            height={32}
+                                            width={28}
+                                            height={28}
                                             className='rounded-full'
                                         />
                                     ) : (
@@ -61,8 +61,8 @@ const Header = () => {
                                     <Image
                                         src={"/images/products/home-heart.svg"}
                                         alt='Logo'
-                                        width={24}
-                                        height={24}
+                                        width={22}
+                                        height={22}
                                         className='mt-1'
                                     />
                                 </Link>

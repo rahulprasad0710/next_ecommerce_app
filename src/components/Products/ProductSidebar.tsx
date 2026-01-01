@@ -1,22 +1,24 @@
 import Link from "next/link";
-import { getAllCategories } from "@/db/query/home";
-import { unstable_cache } from "next/cache";
 
-const ProductSidebar = async () => {
-    const getCachedCategory = unstable_cache(
-        async () => {
-            const result = await getAllCategories();
-            console.log("LOG: ~ HomeCategory ~ result:", result);
-            return result;
-        },
-        ["all-categories"],
-        {
-            tags: ["categories"],
-        }
-    );
+type IProps = {
+    categoryList: {
+        id: string;
+        description: string;
+        name: string;
+        slug: string;
+        image: string | null;
+        parentId: number | null;
+        isActive: boolean | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+    }[];
+    categoryId?: string | undefined;
+};
 
-    const categoryList = await getCachedCategory();
+const ProductSidebar = async (props: IProps) => {
+    const { categoryList, categoryId } = props;
 
+    const selectedCategoryId = categoryId ? Number(categoryId) : null;
     return (
         <div>
             <div>
@@ -24,8 +26,12 @@ const ProductSidebar = async () => {
                 <ul className='mt-4 space-y-2'>
                     <li>
                         <Link
-                            href={`/products`}
-                            className=' text-lg hover:text-accent transition'
+                            href={`/products?page=1`}
+                            className={`text-lg  ${
+                                selectedCategoryId === null
+                                    ? "bg-accent px-3 py-0.5 text-white "
+                                    : "hover:text-accent transition"
+                            }`}
                         >
                             All
                         </Link>
@@ -33,8 +39,12 @@ const ProductSidebar = async () => {
                     {categoryList.map((category) => (
                         <li key={category.id}>
                             <Link
-                                href={`/products?category=${category.slug}`}
-                                className='text-lg hover:text-accent transition'
+                                href={`/products?category=${category.id}&page=1`}
+                                className={`text-lg  ${
+                                    selectedCategoryId === Number(category.id)
+                                        ? "bg-accent px-3 py-0.5 text-white "
+                                        : "hover:text-accent transition"
+                                }`}
                             >
                                 {category.name}
                             </Link>
