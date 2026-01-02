@@ -1,3 +1,4 @@
+import AddToCartButton from "@/components/AddToCartButton";
 import HomeProducts from "@/components/HomeProducts";
 import Image from "next/image";
 import Link from "next/link";
@@ -113,12 +114,7 @@ const RoomDetailsPage = async ({
                                                 )}
                                             </select>
                                         </div>
-
-                                        <div>
-                                            <button className='cursor-pointer px-8 py-3 bg-accent text-white  hover:bg-accent-dark transition'>
-                                                Add to Cart
-                                            </button>
-                                        </div>
+                                        <AddToCartButton />
                                     </div>
                                 </div>
                                 <div className='product-details'>
