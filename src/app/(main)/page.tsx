@@ -9,7 +9,9 @@ export default function Home() {
         <div className='relative'>
             <SwiperImages />
             <HomeCategory />
-            <HomeProducts tag='NEW_ARRIVAL' />
+            <div className='py-16'>
+                <HomeProducts tag='NEW_ARRIVAL' />
+            </div>
             <HomeBlog />
         </div>
     );

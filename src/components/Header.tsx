@@ -33,28 +33,30 @@ const Header = () => {
 
                         {data?.session?.token ? (
                             <div className='flex items-baseline gap-5'>
-                                <Link href='/'>
-                                    {data?.user?.image ? (
-                                        <Image
-                                            src={data?.user?.image}
-                                            alt='Logo'
-                                            width={28}
-                                            height={28}
-                                            className='rounded-full'
-                                        />
-                                    ) : (
-                                        <Image
-                                            src={
-                                                "/images/products/circle-user.svg"
-                                            }
-                                            alt='Logo'
-                                            width={20}
-                                            height={20}
-                                        />
-                                    )}
-                                </Link>
+                                <div>
+                                    <Link href='/'>
+                                        {data?.user?.image ? (
+                                            <Image
+                                                src={data?.user?.image}
+                                                alt='Logo'
+                                                width={28}
+                                                height={28}
+                                                className='rounded-full'
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={
+                                                    "/images/products/circle-user.svg"
+                                                }
+                                                alt='Logo'
+                                                width={20}
+                                                height={20}
+                                            />
+                                        )}
+                                    </Link>
+                                </div>
 
-                                <Link
+                                {/* <Link
                                     className='cursor-pointer'
                                     href='/wishlist'
                                 >
@@ -65,7 +67,7 @@ const Header = () => {
                                         height={22}
                                         className='mt-1'
                                     />
-                                </Link>
+                                </Link> */}
                                 <Link href='/cart' className='cursor-pointer'>
                                     <Image
                                         src='/images/products/cart.svg'

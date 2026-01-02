@@ -18,7 +18,11 @@ type IProps = {
 const ProductSidebar = async (props: IProps) => {
     const { categoryList, categoryId } = props;
 
-    const selectedCategoryId = categoryId ? Number(categoryId) : null;
+    const selectedCategoryId =
+        typeof categoryId === "string" ? Number(categoryId) : null;
+    console.log({
+        selectedCategoryId,
+    });
     return (
         <div>
             <div>
@@ -28,7 +32,8 @@ const ProductSidebar = async (props: IProps) => {
                         <Link
                             href={`/products?page=1`}
                             className={`text-lg  ${
-                                selectedCategoryId === null
+                                selectedCategoryId === null ||
+                                selectedCategoryId === undefined
                                     ? "bg-accent px-3 py-0.5 text-white "
                                     : "hover:text-accent transition"
                             }`}

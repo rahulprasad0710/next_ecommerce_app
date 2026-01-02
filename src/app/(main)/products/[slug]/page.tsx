@@ -1,6 +1,8 @@
+import AddToCartButton from "@/components/AddToCartButton";
 import HomeProducts from "@/components/HomeProducts";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 import React from "react";
 import { getProductBySlug } from "@/db/query/home";
 import { unstable_cache } from "next/cache";
@@ -22,7 +24,12 @@ type IProductItem = {
     tag: string;
 };
 
-const RoomDetailsPage = async ({
+export const metadata: Metadata = {
+    title: "Product Details",
+    description: "Detailed view of the selected product.",
+};
+
+const ProductDetailsPage = async ({
     params,
 }: {
     params: Promise<{ slug: string }>;
@@ -35,7 +42,7 @@ const RoomDetailsPage = async ({
         <div className='relative min-h-[80vh] mt-12'>
             <div className='px-8 lg:x-0'>
                 {product && (
-                    <div className='px-4 md:px-2 lg:px-0   mx-auto max-w-7xl py-12  lg:py-16 md:my-16 '>
+                    <div className='px-4 md:px-2 lg:px-0   mx-auto max-w-7xl py-12  lg:py-16 md:mt-16 '>
                         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-9  min-h-[80vh] gap-16'>
                             <div className='w-full col-span-1 lg:col-span-5 '>
                                 {product.image && (
@@ -113,12 +120,7 @@ const RoomDetailsPage = async ({
                                                 )}
                                             </select>
                                         </div>
-
-                                        <div>
-                                            <button className='cursor-pointer px-8 py-3 bg-accent text-white  hover:bg-accent-dark transition'>
-                                                Add to Cart
-                                            </button>
-                                        </div>
+                                        <AddToCartButton />
                                     </div>
                                 </div>
                                 <div className='product-details'>
@@ -175,10 +177,12 @@ const RoomDetailsPage = async ({
                         </div>
                     </div>
                 )}
-                <HomeProducts tag='NEW_ARRIVAL' />
+                <div className='pb-12'>
+                    <HomeProducts tag='NEW_ARRIVAL' />
+                </div>
             </div>
         </div>
     );
 };
 
-export default RoomDetailsPage;
+export default ProductDetailsPage;
