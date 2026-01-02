@@ -18,4 +18,8 @@ const APP_CONSTANT = {
     DATABASE_URL: process.env.DATABASE_URL,
 };
 
+console.log({
+    APP_CONSTANT,
+});
+
 export default APP_CONSTANT;
