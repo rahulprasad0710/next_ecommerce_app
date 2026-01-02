@@ -16,8 +16,17 @@ const inter = Inter({
 });
 
 export const metadata = {
-    title: "Homeable",
+    title: {
+        default: "Homeable",
+        template: "%s | Homeable",
+    },
     description: "Your go-to marketplace for quality homily products.",
+    twitter: {
+        card: "summary_large_image",
+        title: "Homeable",
+        description: "Your go-to marketplace for quality homily products.",
+        images: ["/og-image.png"],
+    },
 };
 
 const manrope = Manrope({

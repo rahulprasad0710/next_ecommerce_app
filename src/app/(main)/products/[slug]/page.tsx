@@ -2,6 +2,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 import HomeProducts from "@/components/HomeProducts";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 import React from "react";
 import { getProductBySlug } from "@/db/query/home";
 import { unstable_cache } from "next/cache";
@@ -23,7 +24,12 @@ type IProductItem = {
     tag: string;
 };
 
-const RoomDetailsPage = async ({
+export const metadata: Metadata = {
+    title: "Product Details",
+    description: "Detailed view of the selected product.",
+};
+
+const ProductDetailsPage = async ({
     params,
 }: {
     params: Promise<{ slug: string }>;
@@ -179,4 +185,4 @@ const RoomDetailsPage = async ({
     );
 };
 
-export default RoomDetailsPage;
+export default ProductDetailsPage;

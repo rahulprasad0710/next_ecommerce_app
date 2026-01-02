@@ -1,6 +1,7 @@
 import { getAllCategories, getAllProducts } from "@/db/query/home";
 
 import Link from "next/link";
+import { Metadata } from "next";
 import ProductHeading from "@/components/Products/ProductHeading";
 import ProductMain from "@/components/Products/ProductMain";
 import ProductSidebar from "@/components/Products/ProductSidebar";
@@ -14,6 +15,11 @@ interface IPageProps {
         search_query?: string;
     }>;
 }
+
+export const metadata: Metadata = {
+    title: "Products",
+    description: "Browse our wide selection of products.",
+};
 
 const ProductsPage = async ({ searchParams }: IPageProps) => {
     const params = await searchParams;
