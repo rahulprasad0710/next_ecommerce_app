@@ -25,7 +25,32 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_NAME: ${{ secrets.DB_NAME }}
         run: |
-          env | grep -E '^(DATABASE_URL|PMA_BACKEND_API_URL|REVALIDATE_TOKEN|GOOGLE_CLIENT_SECRET|GOOGLE_CLIENT_ID|BETTER_AUTH_URL|BETTER_AUTH_SECRET|DB_HOST|DB_PORT|DB_USER|DB_PASSWORD|DB_NAME)=' > .env
+          # Debug: Print all environment variables (masked)
+          echo "=== CHECKING ENV VARS (masked) ==="
+          echo "DATABASE_URL exists: $(if [ -n "$DATABASE_URL" ]; then echo "YES - length: ${#DATABASE_URL}"; else echo "NO"; fi)"
+          echo "BETTER_AUTH_SECRET exists: $(if [ -n "$BETTER_AUTH_SECRET" ]; then echo "YES - length: ${#BETTER_AUTH_SECRET}"; else echo "NO"; fi)"
+
+          # Create .env file
+          cat > .env << EOF
+          DATABASE_URL=$DATABASE_URL
+          REVALIDATE_TOKEN=$REVALIDATE_TOKEN
+          GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+          GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+          BETTER_AUTH_URL=$BETTER_AUTH_URL
+          BETTER_AUTH_SECRET=$BETTER_AUTH_SECRET
+          DB_HOST=$DB_HOST
+          DB_PORT=$DB_PORT
+          DB_USER=$DB_USER
+          DB_PASSWORD=$DB_PASSWORD
+          DB_NAME=$DB_NAME
+          EOF
+
+          # Show what was written (mask sensitive data)
+          echo "=== .env FILE CREATED ==="
+          sed 's/=.*/=***MASKED***/' .env
+
+          # Also, ensure build doesn't fail due to missing DB
+          echo "NEXT_PUBLIC_SKIP_BUILD_DB_CHECK=true" >> .env
       - name: Build docker image
         run: |
           docker build \
