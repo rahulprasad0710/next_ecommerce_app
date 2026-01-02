@@ -14,11 +14,9 @@ export async function getAllProducts(
     const currentPage = page ?? 1;
     const offset = (currentPage - 1) * PAGE_SIZE;
 
+    const response = await db.execute(`select 1`);
     console.log({
-        tag,
-        categoryId,
-        page,
-        searchQuery,
+        response,
     });
 
     // 1️⃣ Get paginated products

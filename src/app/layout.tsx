@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-    title: "Velora Escape",
-    description: "Your Luxury hotel for vacation",
+    title: "Homeable",
+    description: "Your go-to marketplace for quality homily products.",
 };
 
 const manrope = Manrope({
