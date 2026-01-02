@@ -23,27 +23,27 @@ const HeaderMenu = () => {
             >
                 <Link
                     className='px-2 font-medium hover:text-accent transition'
-                    href='/products'
+                    href='/products?page=1'
                 >
                     Shop
                 </Link>
                 <Link
                     className='px-2 font-medium hover:text-accent transition'
-                    href='/decor'
+                    href='/products?category=2&page=1'
                 >
-                    Decor
+                    Frames
                 </Link>
                 <Link
                     className='px-2 font-medium hover:text-accent transition'
-                    href='/decor'
-                >
-                    Wall Art
-                </Link>
-                <Link
-                    className='px-2 font-medium hover:text-accent transition'
-                    href='/decor'
+                    href='/products?category=3&page=1'
                 >
                     Lighting
+                </Link>
+                <Link
+                    className='px-2 font-medium hover:text-accent transition'
+                    href='/decor'
+                >
+                    Ply Decor
                 </Link>
                 <div className='bg-gray-400 w-[1px] h-4 mx-1'></div>
                 <Link
@@ -54,7 +54,8 @@ const HeaderMenu = () => {
                 </Link>
                 <Link
                     className='px-2 font-medium hover:text-accent transition'
-                    href='/decor'
+                    target='_blank'
+                    href='https://github.com/rahulprasad0710'
                 >
                     Contact
                 </Link>

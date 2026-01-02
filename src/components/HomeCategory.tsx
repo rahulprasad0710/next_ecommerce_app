@@ -29,7 +29,7 @@ const HomeCategory = async () => {
                     <Link
                         key={category.id}
                         className='cursor-pointer'
-                        href={`/category/${category.id}`}
+                        href={`/products?category=${category.id}&page=1`}
                     >
                         <div className='relative  w-full '>
                             <Image

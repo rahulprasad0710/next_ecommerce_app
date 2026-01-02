@@ -35,7 +35,7 @@ const RoomDetailsPage = async ({
         <div className='relative min-h-[80vh] mt-12'>
             <div className='px-8 lg:x-0'>
                 {product && (
-                    <div className='px-4 md:px-2 lg:px-0   mx-auto max-w-7xl py-12  lg:py-16 md:my-16 '>
+                    <div className='px-4 md:px-2 lg:px-0   mx-auto max-w-7xl py-12  lg:py-16 md:mt-16 '>
                         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-9  min-h-[80vh] gap-16'>
                             <div className='w-full col-span-1 lg:col-span-5 '>
                                 {product.image && (
@@ -175,7 +175,9 @@ const RoomDetailsPage = async ({
                         </div>
                     </div>
                 )}
-                <HomeProducts tag='NEW_ARRIVAL' />
+                <div className='pb-12'>
+                    <HomeProducts tag='NEW_ARRIVAL' />
+                </div>
             </div>
         </div>
     );

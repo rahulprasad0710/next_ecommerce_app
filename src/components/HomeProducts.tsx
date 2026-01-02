@@ -44,7 +44,7 @@ const HomeProducts = async (props: IProps) => {
     });
 
     return (
-        <div className=' px-4 md:px-2 lg:px-0   mx-auto container py-16 '>
+        <div className=' px-4 md:px-2 lg:px-0   mx-auto container  '>
             <div className='section-title align-center mb-6'>
                 <div className='caption-title text-gray-600'>Winter Season</div>
                 <h1 className='heading text-2xl'>New Arrivals</h1>
