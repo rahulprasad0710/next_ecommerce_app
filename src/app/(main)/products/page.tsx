@@ -8,13 +8,11 @@ import React from "react";
 import { unstable_cache } from "next/cache";
 
 interface IPageProps {
-    searchParams:
-        | {
-              category?: string;
-              page?: string;
-              search_query?: string;
-          }
-        | Promise<{ [key: string]: string | undefined }>;
+    searchParams?: Promise<{
+        category?: string;
+        page?: string;
+        search_query?: string;
+    }>;
 }
 
 const ProductsPage = async ({ searchParams }: IPageProps) => {
